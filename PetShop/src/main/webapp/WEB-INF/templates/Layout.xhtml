@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="titulo">Portal Energia - FEAN</ui:insert></title>
+	<h:outputStylesheet library="energia" name="estilo.css" />
+</h:head>
+
+<h:body>
+
+	<p:ajaxStatus styleClass="ajax-status">
+		<f:facet name="start">
+			<h:graphicImage library="energia" name="loading.gif" />
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+	<header>
+		<h:graphicImage library="energia" name="logo.png" style="heigth:35px; width: 55px"  />
+		
+		<div style="float: right; margin-right: 110px">
+				<span style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
+				Olá #{loginController.nomeUsuario}!
+				</span>
+				
+				<h:form style="display: inline-block">
+					<p:menubar styleClass="menu-sistema">
+						<p:submenu label="Cadastros">
+							<p:menuitem value="Empresa" action="#{menuController.chamarEmpresa}" />
+						</p:submenu>
+						<p:menuitem value="Sair"  action="#{loginController.logout}" />
+					</p:menubar>
+				</h:form>
+			</div>
+			<div style="clear: both"></div>
+	</header>
+
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+	
+	<p:separator style="margin-top: 20px"/>
+	
+	<footer>
+		Rua Santos Dumont, 36 | Rua Saldanha Marinho, 51
+					Centro - Florianópolis - SC
+					Fone: (48) 2107-5899
+	</footer>
+	
+	<h:form>
+		<p:confirmDialog global="true">
+			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"
+				icon="ui-icon-close" />
+				
+			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+				icon="ui-icon-check" />
+		</p:confirmDialog>
+	</h:form>
+</h:body>
+
+</html>
