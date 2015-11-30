@@ -49,12 +49,15 @@ public class Animal implements Serializable {
     @JoinColumn(name="HISTORICO_IDHISTORICO")
 	private List<Historico> historicoAnimal;
 	
+	@NotEmpty
 	@ManyToOne(cascade=CascadeType.ALL)
 	private TipoAnimal tipoAnimal;
 	
 	@NotEmpty
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Raca raca;
 	
+	@NotEmpty
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Pessoa dono;
 
