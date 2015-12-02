@@ -38,4 +38,36 @@ public class Raca {
 
 	}
 
+	public Long getIdRaca() {
+		return idRaca;
+	}
+
+	public void setIdRaca(Long idRaca) {
+		this.idRaca = idRaca;
+	}
+
+	public String getRacaTipo() {
+		return racaTipo;
+	}
+
+	public void setRacaTipo(String racaTipo) {
+		this.racaTipo = racaTipo;
+	}
+
+	public TipoAnimal getTipoAnimal() {
+		return tipoAnimal;
+	}
+
+	public void setTipoAnimal(TipoAnimal tipoAnimal) {
+		this.tipoAnimal = tipoAnimal;
+	}
+
+	public List<Animal> getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(List<Animal> animal) {
+		this.animal = animal;
+	}
+	
 }

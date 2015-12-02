@@ -47,7 +47,6 @@ public class Pessoa implements Serializable {
     @OneToOne(mappedBy = "pessoa")
 	private Endereco endereco;
 	
-	
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)

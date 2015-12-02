@@ -11,10 +11,6 @@ import javax.persistence.NoResultException;
 import br.com.energia.util.jpa.UtilJPA;
 
 
-/**
- * @author Juliano Torquato
- *
- */
 public abstract class GenericRepositoryImpl<T, I extends Serializable> implements br.com.energia.repository.GenericRepository<T, Long> {
     
     @Override

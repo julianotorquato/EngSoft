@@ -65,4 +65,68 @@ public class Animal implements Serializable {
 
 	}
 
+	public Long getIdAnimal() {
+		return idAnimal;
+	}
+
+	public void setIdAnimal(Long idAnimal) {
+		this.idAnimal = idAnimal;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Calendar getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Calendar dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
+	public List<Historico> getHistoricoAnimal() {
+		return historicoAnimal;
+	}
+
+	public void setHistoricoAnimal(List<Historico> historicoAnimal) {
+		this.historicoAnimal = historicoAnimal;
+	}
+
+	public TipoAnimal getTipoAnimal() {
+		return tipoAnimal;
+	}
+
+	public void setTipoAnimal(TipoAnimal tipoAnimal) {
+		this.tipoAnimal = tipoAnimal;
+	}
+
+	public Raca getRaca() {
+		return raca;
+	}
+
+	public void setRaca(Raca raca) {
+		this.raca = raca;
+	}
+
+	public Pessoa getDono() {
+		return dono;
+	}
+
+	public void setDono(Pessoa dono) {
+		this.dono = dono;
+	}
+	
 }

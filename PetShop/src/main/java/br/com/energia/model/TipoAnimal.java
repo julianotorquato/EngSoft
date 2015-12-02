@@ -38,4 +38,38 @@ public class TipoAnimal {
 
 	}
 
+	public Long getIdTipoAnimal() {
+		return idTipoAnimal;
+	}
+
+	public void setIdTipoAnimal(Long idTipoAnimal) {
+		this.idTipoAnimal = idTipoAnimal;
+	}
+
+	public String getDescricaoTipo() {
+		return descricaoTipo;
+	}
+
+	public void setDescricaoTipo(String descricaoTipo) {
+		this.descricaoTipo = descricaoTipo;
+	}
+
+	public Set<Raca> getRacas() {
+		return racas;
+	}
+
+	public void setRacas(Set<Raca> racas) {
+		this.racas = racas;
+	}
+
+	public List<Animal> getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(List<Animal> animal) {
+		this.animal = animal;
+	}
+	
+	
+
 }

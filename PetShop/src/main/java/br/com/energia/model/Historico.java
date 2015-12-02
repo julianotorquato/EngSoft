@@ -1,5 +1,6 @@
 package br.com.energia.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -19,8 +20,10 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Historico {
+public class Historico implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idHistorico;
@@ -43,8 +46,8 @@ public class Historico {
 	private Animal animal;
 	
 	@NotNull
-	@Column(name = "funcionario", nullable = false, length = 300)
-	private Pessoa funcinario;
+	@Column(name = "pessoa", nullable = false, length = 300)
+	private Pessoa pessoa;
 	
 	public Historico(){
 	}
