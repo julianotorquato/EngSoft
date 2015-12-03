@@ -1,6 +1,8 @@
 package br.com.energia.model;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,26 +18,22 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Raca {
+public class Raca implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_raca")
 	private Long idRaca;
 	
 	@NotEmpty
-	@Column(name = "racaTipo", nullable = false, length = 150)
-	private String racaTipo;
+	@Column(nullable = false, length = 150)
+	private String nome;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
+    @JoinColumn(name = "id_tipo_animal")
 	private TipoAnimal tipoAnimal;
-	
-	@NotEmpty
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="ANIMAL_IDANIMAL")
-	private List<Animal> animal;
 
 	public Raca(){
-
 	}
 
 	public Long getIdRaca() {
@@ -47,11 +45,11 @@ public class Raca {
 	}
 
 	public String getRacaTipo() {
-		return racaTipo;
+		return nome;
 	}
 
 	public void setRacaTipo(String racaTipo) {
-		this.racaTipo = racaTipo;
+		this.nome = racaTipo;
 	}
 
 	public TipoAnimal getTipoAnimal() {
@@ -62,12 +60,40 @@ public class Raca {
 		this.tipoAnimal = tipoAnimal;
 	}
 
-	public List<Animal> getAnimal() {
-		return animal;
-	}
-
-	public void setAnimal(List<Animal> animal) {
-		this.animal = animal;
+	public String getNome() {
+		return nome;
 	}
 	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idRaca == null) ? 0 : idRaca.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Raca other = (Raca) obj;
+		if (idRaca == null) {
+			if (other.idRaca != null)
+				return false;
+		} else if (!idRaca.equals(other.idRaca))
+			return false;
+		return true;
+	}
+
+
 }

@@ -2,25 +2,24 @@ package br.com.energia.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Table(name="endereco")
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 			
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_endereco")
 	private Long idEndereco;
 	
 	@NotEmpty
@@ -31,7 +30,6 @@ public class Endereco implements Serializable {
 	@Column(name = "numero", nullable = false, length = 50)
 	private String numero;
 	
-	@NotEmpty
 	@Column(name = "complemento", nullable = false, length = 100)
 	private String complemento;
 	
@@ -43,13 +41,7 @@ public class Endereco implements Serializable {
 	@Column(name = "uf", nullable = false, length = 2)
 	private String uf;
 	
-	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-	private Pessoa pessoa;
-
-	public Endereco(){
-
-	}
+	public Endereco(){}
 
 	public Long getIdEndereco() {
 		return idEndereco;
@@ -99,14 +91,34 @@ public class Endereco implements Serializable {
 		this.uf = uf;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idEndereco == null) ? 0 : idEndereco.hashCode());
+		return result;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Endereco other = (Endereco) obj;
+		if (idEndereco == null) {
+			if (other.idEndereco != null)
+				return false;
+		} else if (!idEndereco.equals(other.idEndereco))
+			return false;
+		return true;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Endereco [idEndereco=" + idEndereco + ", logradouro=" + logradouro + ", numero=" + numero
+				+ ", complemento=" + complemento + ", cidade=" + cidade + ", uf=" + uf + "]";
+	}
 }

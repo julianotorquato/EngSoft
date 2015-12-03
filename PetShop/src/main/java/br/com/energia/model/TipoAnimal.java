@@ -1,5 +1,6 @@
 package br.com.energia.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -12,31 +13,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class TipoAnimal {
+@Table(name="tipo_animal")
+public class TipoAnimal implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_tipo_animal")
 	private Long idTipoAnimal;
 	
 	@NotEmpty
-	@Column(name = "descricaoTipo", nullable = false, length = 150)
-	private String descricaoTipo;
+	@Column(nullable = false, length = 150)
+	private String descricao;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="RACA_IDRACA")
+	@OneToMany(mappedBy = "tipoAnimal", cascade = CascadeType.ALL)
 	private Set<Raca> racas;
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="ANIMAL_IDANIMAL")
-	private List<Animal> animal;
 
-	public TipoAnimal(){
-
-	}
+	public TipoAnimal(){}
 
 	public Long getIdTipoAnimal() {
 		return idTipoAnimal;
@@ -46,12 +43,13 @@ public class TipoAnimal {
 		this.idTipoAnimal = idTipoAnimal;
 	}
 
-	public String getDescricaoTipo() {
-		return descricaoTipo;
+	
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescricaoTipo(String descricaoTipo) {
-		this.descricaoTipo = descricaoTipo;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Set<Raca> getRacas() {
@@ -62,14 +60,34 @@ public class TipoAnimal {
 		this.racas = racas;
 	}
 
-	public List<Animal> getAnimal() {
-		return animal;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idTipoAnimal == null) ? 0 : idTipoAnimal.hashCode());
+		return result;
 	}
 
-	public void setAnimal(List<Animal> animal) {
-		this.animal = animal;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TipoAnimal other = (TipoAnimal) obj;
+		if (idTipoAnimal == null) {
+			if (other.idTipoAnimal != null)
+				return false;
+		} else if (!idTipoAnimal.equals(other.idTipoAnimal))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "TipoAnimal [idTipoAnimal=" + idTipoAnimal + ", descricao=" + descricao + ", racas=" + racas + "]";
 	}
 	
-	
-
 }

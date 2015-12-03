@@ -11,7 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -20,12 +22,14 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Table(name="historico")
 public class Historico implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_historico")
 	private Long idHistorico;
 	
 	@NotNull
@@ -35,18 +39,22 @@ public class Historico implements Serializable{
 	private Date dtRegistro;
 	
 	@NotEmpty
-	@Column(name = "observacao", nullable = false, length = 300)
+	@Column(nullable = false, length = 300)
 	private String observacao;
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
+	@Column(name="tipo_procedimento")
 	private TipoProcedimento tipoProcedimento;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@NotEmpty
+	@ManyToOne
+	@JoinColumn(name="id_animal")
 	private Animal animal;
 	
 	@NotNull
-	@Column(name = "pessoa", nullable = false, length = 300)
+	@Column(name="id_funcionario", nullable = false)
+	//@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;
 	
 	public Historico(){

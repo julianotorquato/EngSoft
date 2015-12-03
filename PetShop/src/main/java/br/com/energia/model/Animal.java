@@ -1,20 +1,16 @@
 package br.com.energia.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -23,46 +19,46 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Table(name="animal")
 public class Animal implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_animal")
 	private Long idAnimal;
 	
 	@NotEmpty
-	@Column(name = "nome", nullable = false, length = 100)
+	@Column(nullable = false, length = 100)
 	private String nome;
 	
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento")
-	private Calendar dataNascimento;
+	private Date dataNascimento;
 	
 	@NotEmpty
 	@Column(name = "sexo", nullable = false)
-	private char sexo;
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="HISTORICO_IDHISTORICO")
-	private List<Historico> historicoAnimal;
+	private Character sexo;
 	
 	@NotEmpty
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name="id_tipo_animal")
 	private TipoAnimal tipoAnimal;
 	
 	@NotEmpty
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name="id_raca")
 	private Raca raca;
 	
 	@NotEmpty
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name = "id_cliente")
 	private Pessoa dono;
 
 	public Animal(){
-
 	}
 
 	public Long getIdAnimal() {
@@ -81,11 +77,11 @@ public class Animal implements Serializable {
 		this.nome = nome;
 	}
 
-	public Calendar getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Calendar dataNascimento) {
+	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -95,14 +91,6 @@ public class Animal implements Serializable {
 
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
-	}
-
-	public List<Historico> getHistoricoAnimal() {
-		return historicoAnimal;
-	}
-
-	public void setHistoricoAnimal(List<Historico> historicoAnimal) {
-		this.historicoAnimal = historicoAnimal;
 	}
 
 	public TipoAnimal getTipoAnimal() {
@@ -128,5 +116,35 @@ public class Animal implements Serializable {
 	public void setDono(Pessoa dono) {
 		this.dono = dono;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idAnimal == null) ? 0 : idAnimal.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Animal other = (Animal) obj;
+		if (idAnimal == null) {
+			if (other.idAnimal != null)
+				return false;
+		} else if (!idAnimal.equals(other.idAnimal))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Animal [idAnimal=" + idAnimal + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", sexo="
+				+ sexo + ", tipoAnimal=" + tipoAnimal + ", raca=" + raca + ", dono=" + dono + "]";
+	}
 }
