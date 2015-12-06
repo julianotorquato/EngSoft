@@ -1,0 +1,80 @@
+<ui:composition template="/WEB-INF/templates/Layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Pesquisa de Cliente</ui:define>
+    
+    <ui:define name="corpo">
+    	<h:form id="frmPesquisa">
+	    	<h1>Pesquisa de Clientes</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Pesquisar" action="#{clienteController.pesquisar}"
+	    				update="@form" />
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+	    			<p:commandButton value="Novo"  action="#{menuController.chamarClienteCadastro}" />
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="CPF" for="txt_cpf"/>
+	    		<p:inputText id="txt_cpf" size="14" maxlength="14" 
+	    			value="#{clienteController.clienteFiltro.cpf}" 
+	    			mask="999.999.999-99" />
+	    		
+	    		<p:outputLabel value="Nome" for="nome"/>
+	    		<p:inputText id="nome" size="60" value="#{clienteController.clienteFiltro.nome}" />
+	    	</p:panelGrid>
+	    	
+	    	<p:dataTable id="clientesTable" value="#{clienteController.clientesFiltrados}" var="item"
+	    		style="margin-top: 20px" emptyMessage="Nenhum cliente encontrado." rows="20"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		<p:column headerText="Nome" width="150">
+	    			<h:outputText value="#{item.nome}" />
+	    		</p:column>
+	    		<p:column headerText="CPF" style="text-align: center; width: 100px">
+	    			<h:outputText value="#{item.cpf}" />
+	    		</p:column>
+	    		<p:column headerText="RG" style="width: 100px">
+	    			<h:outputText value="#{item.nrRg}" />
+	    		</p:column>
+	    		<p:column headerText="Endereço" style="text-align: center; width: 250px">
+	    			<h:outputText value="#{item.endereco.logradouro}, #{item.endereco.numero}
+	    			- #{item.endereco.cidade}"/>
+	    		</p:column>
+	    		<p:column style="width: 100px; text-align: center" headerText="Opções">
+	    			<p:commandButton action="#{menuController.chamarClienteCadastro}" icon="ui-icon-pencil" update="@this" process="@this" title="Editar">
+	    				<f:setPropertyActionListener target="#{clienteController.cliente}" 
+	    					value="#{item}" />
+	    			</p:commandButton>
+	    			<p:commandButton icon="ui-icon-trash" title="Excluir"
+	    					process="@this" update=":frmPesquisa:clientesTable"
+	    					action="#{clienteController.excluir}">
+	    					<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+            				message="Tem certeza que deseja excluir?" />
+	    				<f:setPropertyActionListener target="#{clienteController.clienteSelecionado}" 
+	    					value="#{item}" />
+	    			</p:commandButton>
+	    			
+	    		</p:column>
+	    	</p:dataTable>
+	    	
+	    	<p:confirmDialog header="Exclusão de produto" 
+	    		message="Tem certeza que deseja excluir o cliente #{clienteController.clienteSelecionado.nome}?"
+	    		widgetVar="confirmacaoExclusao"	id="confirmacaoExclusaoDialog">
+	    		<p:button value="Não" onclick="confirmacaoExclusao.hide(); return false;" />
+	    		<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide();"
+	    			action="#{clienteController.excluir}" process="@this"
+	    			update=":frmPesquisa:clientesTable" />
+	    	</p:confirmDialog>
+    	</h:form>
+    </ui:define>
+</ui:composition>

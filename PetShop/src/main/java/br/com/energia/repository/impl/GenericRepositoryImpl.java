@@ -80,6 +80,4 @@ public abstract class GenericRepositoryImpl<T, I extends Serializable> implement
             return null;
         }
     }
-    
-    
 }

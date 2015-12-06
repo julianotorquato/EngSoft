@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid columns="4" style="width: 100%" columnClasses="rotulo, campo, rotulo, campo">
+		<p:outputLabel value="Logradouro" for="txt_logradouro" />
+   		<p:inputText id="txt_logradouro" size="60" maxlength="80" 
+   			value="#{clienteController.cliente.endereco.logradouro}" />   			
+		<p:outputLabel value="Número" for="txt_numero" />
+   		<p:inputText id="txt_numero" size="10" maxlength="10" 
+   			value="#{clienteController.cliente.endereco.numero}" />
+
+        <p:outputLabel value="Complemento" for="txt_complemento" />
+        <p:inputText id="txt_complemento" size="60" value="#{clienteController.cliente.endereco.complemento}" />
+		
+		<p:column/>
+		<p:column/>
+		
+        <p:outputLabel value="Cidade" for="txt_cidade" />
+        <p:inputText id="txt_cidade" size="20" value="#{clienteController.cliente.endereco.cidade}" />
+
+        <p:outputLabel value="Estado" for="txt_estado" />
+        <p:inputText id="txt_estado" size="2" value="#{clienteController.cliente.endereco.uf}" />
+	</p:panelGrid>
+  	
+</ui:composition>

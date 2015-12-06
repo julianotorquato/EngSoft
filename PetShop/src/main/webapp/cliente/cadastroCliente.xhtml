@@ -1,0 +1,61 @@
+<ui:composition template="/WEB-INF/templates/Layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo">#{clienteController.editando ? 'Edição de Cliente' : 'Novo Cliente'}</ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+    		<o:viewParam name="cliente" value="#{clienteController.cliente}" />
+    		<f:event listener="#{clienteController.inicializar}" type="preRenderView" />
+    	</f:metadata>
+    
+    	<h:form>
+	    	<h1>#{clienteController.editando ? 'Edição de Cliente' : 'Novo Cliente'}</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Novo" action="#{menuController.chamarClienteCadastro}" />
+	    			<p:commandButton value="Salvar" id="botaoSalvar"
+	    				action="#{clienteController.salvar}" update="@form" />
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+	    			<p:button value="Pesquisa" outcome="/cliente/pesquisaCliente" />
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="Nome" for="txt_nome" />
+	    		<p:inputText id="txt_nome" size="50" maxlength="50" value="#{clienteController.cliente.nome}" />
+	    		
+	    		<p:outputLabel value="CPF" for="txt_cpf" />
+	    		<p:inputMask id="txt_cpf" size="14" maxlength="14" value="#{clienteController.cliente.cpf}"
+	    			 mask="999.999.999-99" />
+	    			 
+   			 	<p:outputLabel value="RG" for="txt_rg" />
+	    		<p:inputText id="txt_rg"  value="#{clienteController.cliente.nrRg}" />
+	    		
+	    		<p:outputLabel value="Login" for="txt_login" />
+	    		<p:inputText id="txt_login"  value="#{clienteController.cliente.login}" />
+	    		
+	    		<p:outputLabel value="Senha" for="txt_senha" />
+	    		<p:password id="txt_senha"  value="#{clienteController.cliente.senha}" />
+				</p:panelGrid>
+				
+				<p:tabView style="margin-top: 20px">
+					<p:tab title="Endereço" >
+						<ui:include src="/WEB-INF/templates/cliente/endereco.xhtml" />
+					</p:tab>
+				</p:tabView>
+	    		
+	    	
+    	</h:form>
+    </ui:define>
+</ui:composition>

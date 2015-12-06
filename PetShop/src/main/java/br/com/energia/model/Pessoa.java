@@ -34,6 +34,10 @@ public class Pessoa implements Serializable {
 	private Long idPessoa;
 	
 	@NotEmpty
+	@Column(length=50)
+	private String nome;
+	
+	@NotEmpty
 	@Column(name = "login", nullable = false, length = 80)
 	private String login;
 	
@@ -49,7 +53,7 @@ public class Pessoa implements Serializable {
 	@Column(name = "cpf",nullable = false, length = 18)
 	private String cpf;
 	
-	@NotEmpty
+	@NotNull
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_endereco", nullable = false)
 	private Endereco endereco;
@@ -57,7 +61,7 @@ public class Pessoa implements Serializable {
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_cadastro")
+	@Column(name = "dt_cadastro", columnDefinition = "DATE DEFAULT CURRENT_DATE")
 	private Date dtCadastro;
 	
 	@Enumerated(EnumType.STRING)
@@ -78,6 +82,14 @@ public class Pessoa implements Serializable {
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getSenha() {
@@ -155,7 +167,9 @@ public class Pessoa implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pessoa [idPessoa=" + idPessoa + ", login=" + login + ", senha=" + senha + ", nrRg=" + nrRg + ", cpf="
-				+ cpf + ", endereco=" + endereco + ", dtCadastro=" + dtCadastro + ", tipoPessoa=" + tipoPessoa + "]";
+		return "Pessoa [idPessoa=" + idPessoa + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", nrRg="
+				+ nrRg + ", cpf=" + cpf + ", endereco=" + endereco + ", dtCadastro=" + dtCadastro + ", tipoPessoa="
+				+ tipoPessoa + "]";
 	}
+	
 }
