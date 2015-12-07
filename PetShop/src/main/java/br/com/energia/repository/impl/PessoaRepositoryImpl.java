@@ -50,4 +50,21 @@ public class  PessoaRepositoryImpl extends GenericRepositoryImpl<Pessoa, Seriali
 		criteria.add(Restrictions.eq("tipoPessoa", TipoPessoa.CLIENTE));
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
+	
+	
+
+	@Override
+	public Pessoa getPorId(Long id) {
+		return super.getPorId(Pessoa.class, id);
+	}
+
+	@Override
+	public Pessoa buscarPor(String email, String senha) {
+		EntityManager manager = UtilJPA.getEntityManager();
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Pessoa.class);
+		criteria.add(Restrictions.eq("login", email));
+		criteria.add(Restrictions.eq("senha", senha));
+		return (Pessoa) criteria.addOrder(Order.asc("nome")).uniqueResult();
+	}
 }

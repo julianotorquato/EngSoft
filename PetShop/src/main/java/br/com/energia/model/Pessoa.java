@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -61,7 +62,7 @@ public class Pessoa implements Serializable {
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_cadastro", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+	@Column(name = "dt_cadastro")
 	private Date dtCadastro;
 	
 	@Enumerated(EnumType.STRING)
@@ -139,7 +140,17 @@ public class Pessoa implements Serializable {
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
-
+	
+	@Transient
+	public Boolean isCliente(){
+		return this.tipoPessoa.equals(TipoPessoa.CLIENTE);
+	}
+	
+	@Transient
+	public Boolean isFuncionario(){
+		return this.tipoPessoa.equals(TipoPessoa.FUNCIONARIO);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

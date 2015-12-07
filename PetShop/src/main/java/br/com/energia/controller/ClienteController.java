@@ -47,7 +47,6 @@ public class ClienteController implements Serializable {
 	
 	public void inicializar(){
 		if (UtilFaces.isNotPostback()) {
-			limpar();
 		}
 	}
 	
@@ -57,9 +56,9 @@ public class ClienteController implements Serializable {
 			pessoaService.salvar(isEdicao, cliente);
 			
 			if (isEdicao) {
-				UtilFaces.addInfoMessage("Cliente editada com sucesso!");
+				UtilFaces.addInfoMessage("Cliente editado com sucesso!");
 			}else{
-				UtilFaces.addInfoMessage("Cliente salva com sucesso!");
+				UtilFaces.addInfoMessage("Cliente salvo com sucesso!");
 			}
 			
 			limpar();
@@ -123,7 +122,8 @@ public class ClienteController implements Serializable {
 	}
 	
 	public boolean isEditando() {
-		return this.cliente.getIdPessoa() != null;
+		isEdicao = this.cliente.getIdPessoa() != null;
+		return isEdicao;
 	}
 
 }

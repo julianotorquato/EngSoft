@@ -51,10 +51,10 @@
 	    			- #{item.endereco.cidade}"/>
 	    		</p:column>
 	    		<p:column style="width: 100px; text-align: center" headerText="Opções">
-	    			<p:commandButton action="#{menuController.chamarClienteCadastro}" icon="ui-icon-pencil" update="@this" process="@this" title="Editar">
-	    				<f:setPropertyActionListener target="#{clienteController.cliente}" 
-	    					value="#{item}" />
-	    			</p:commandButton>
+	    			<p:button outcome="/cliente/cadastroCliente" icon="ui-icon-pencil" 
+	    				 title="Editar">
+	    				<f:param name="cliente" value="#{item.idPessoa}" />
+	    			</p:button>
 	    			<p:commandButton icon="ui-icon-trash" title="Excluir"
 	    					process="@this" update=":frmPesquisa:clientesTable"
 	    					action="#{clienteController.excluir}">
